@@ -1,10 +1,8 @@
 import java.io.File
 import kotlin.math.max
 
-
 fun part1(input: List<String>, possibleColors: Map<String, Int>): Int {
-    var sum = 0
-    input.forEach {line ->
+    return input.sumOf { line ->
         val gameId = line.split(":")[0].replace("Game ","").toInt()
         var possible = true
         val pulls = line
@@ -17,14 +15,12 @@ fun part1(input: List<String>, possibleColors: Map<String, Int>): Int {
                     possible = false
             }
         }
-        if(possible) sum += gameId
+        if(possible) gameId else 0
     }
-    return sum
 }
 
 fun part2(input: List<String>): Int {
-    var sum = 0
-    input.map { line ->
+    return input.sumOf { line ->
         val minimum = mutableMapOf(
             "red" to 1,
             "green" to 1,
@@ -38,9 +34,8 @@ fun part2(input: List<String>): Int {
                 minimum[it.split(" ")[1]] = max(minimum[it.split(" ")[1]]!!, it.split(" ")[0].toInt())
             }
         }
-        sum += (minimum["red"]!! * minimum["green"]!! * minimum["blue"]!!)
+        minimum["red"]!! * minimum["green"]!! * minimum["blue"]!!
     }
-    return sum
 }
 
 

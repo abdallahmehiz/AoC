@@ -22,7 +22,7 @@ fun part1(input: List<String>): Int {
 fun part2(input: List<String>): Int {
     return part1(input.map {
         numbers.entries.fold(it) { c, (key, value) ->
-            c.replace(key, key + value.toString() + key)
+            c.replace(key, "$key$value$key")
         }
     })
 }
