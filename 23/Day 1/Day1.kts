@@ -12,22 +12,22 @@ val numbers = mapOf(
     "nine" to "9",
 )
 
-fun part1(input: List<String>): Int {
-    return input.sumOf {
+fun part1(input: String): Int {
+    return input.split("\n").sumOf {
         "${it.find { c -> numbers.containsValue("$c") }}${it.findLast { c -> numbers.containsValue("$c") }}"
             .toInt()
     }
 }
 
-fun part2(input: List<String>): Int {
-    return part1(input.map {
+fun part2(input: String): Int {
+    return part1(input.split("\n").map {
         numbers.entries.fold(it) { c, (key, value) ->
             c.replace(key, "$key$value$key")
         }
-    })
+    }.joinToString("\n"))
 }
 
-fun part2i2(input: List<String>) = input.sumOf {
+fun part2i2(input: String) = input.split("\n").sumOf {
     var first = ""
     var last = ""
     it.findAnyOf(numbers.values)?.let { pair ->
@@ -45,7 +45,8 @@ fun part2i2(input: List<String>) = input.sumOf {
     "$first$last".toInt()
 }
 
-val input = File("input").readLines().map { it }.toMutableList()
+val input = File("input").readText()
+
 println("Part 1: ${part1(input)}")
 println("Part 2: ${part2(input)}")
-println("Part 2: ${part2i2(input)}")
+println("Part 2 2nd iteration: ${part2i2(input)}")
